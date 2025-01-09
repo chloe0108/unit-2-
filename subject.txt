@@ -1,0 +1,67 @@
+# Unit-2
+
+def main_menu():
+  while true:
+    print("/nMenu:")
+    print("1)Create a new file")
+    print("2)Display the file")
+    print("3)Add a new item to the file")
+    selection = input("Make a selection(1, 2, or 3): ")
+
+    if selection == "1":
+      create_new_file()
+    elif selection == "2":
+      display_file()
+    elif selection == "3":
+      add_to_file()
+    else:
+      print("Invalid selction. Please choose 1, 2, or 3.")
+
+def create_new_file():
+    subject = input("Enter a school subject: ")
+    with open ("Subject.txt", "w") as file:
+      file.write(subject + "\n)
+print("New file created and subject saved.")
+
+def display_file():
+    try:
+        with open("Subject.txt", "r") as file:
+            contents = file.read()
+            print("\nContents of 'Subject.txt':")
+            print(contents)
+    except FileNotFoundError:
+        print("The file 'Subject.txt' does not exist. Please create it first.")
+
+def add_to_file():
+    subject = input("Enter a school subject to add: ")
+    with open("Subject.txt", "a") as file:
+        file.write(subject + "\n")
+    print("Subject added to the file.")
+
+def process_names():
+    try:
+        with open("Names.txt", "r") as file:
+            names = file.readlines()
+            print("\nNames in 'Names.txt':")
+            for name in names:
+                print(name.strip())
+
+        chosen_name = input("\nEnter a name from the list: ")
+        if chosen_name + "\n" not in names:
+            print("The name you entered is not in the file.")
+            return
+
+        with open("Names2.txt", "w") as file:
+            for name in names:
+                if name.strip() != chosen_name:
+                    file.write(name)
+        print(f"All names except '{chosen_name}' have been saved to 'Names2.txt'.")
+    except FileNotFoundError:
+        print("The file 'Names.txt' does not exist. Please create it first.")
+
+# Run the program
+if __name__ == "__main__":
+    main_menu()
+
+    # Uncomment the line below to run part 6
+    # process_names()
